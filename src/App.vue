@@ -4,13 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-
-        <RouterLink to="/compare">Compare</RouterLink>
-      </nav>
-    </div>
+    <div class="wrapper"></div>
   </header>
 
   <RouterView />

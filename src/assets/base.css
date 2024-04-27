@@ -41,12 +41,14 @@
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
     --color-background-mute: var(--vt-c-black-mute);
+    --color-background-white: var(--vt-c-white);
 
     --color-border: var(--vt-c-divider-dark-2);
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-white);
+    --color-text-black: var(--vt-c-black);
   }
 }
 
@@ -60,8 +62,8 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: var(--color-text-black);
+  background: var(--color-background-white);
   transition:
     color 0.5s,
     background-color 0.5s;
