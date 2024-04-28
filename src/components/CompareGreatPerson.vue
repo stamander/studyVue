@@ -88,7 +88,7 @@ const references: Ref<Array<{ link: string; text: string; accessDate: string }>>
     <p>© 2024 atsushi.iida</p>
     <div id="parents-references">
       <div id="references">
-        <p>参考文献</p>
+        <p>参考</p>
         <li v-for="(reference, index) in references" :key="index">
           <a :href="reference.link" target="_blank" class="reference-link">
             {{ reference.text }}
