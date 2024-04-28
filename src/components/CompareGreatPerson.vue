@@ -81,6 +81,8 @@ const references: Ref<Array<{ link: string; text: string; accessDate: string }>>
         内容が間違っている、この人物を入れて欲しい等あればぜひお問い合わせフォームからお願いいたします。
       </p>
     </div>
+    <div id="ad">
+    </div>
   </div>
   <footer>
     <p>© 2024 stamander</p>
@@ -100,7 +102,7 @@ const references: Ref<Array<{ link: string; text: string; accessDate: string }>>
 
 <style scoped>
 #explain,
-#main-contents {
+#main-contents,#inquiry {
   border-bottom: 1px solid #cccccc;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -148,16 +150,7 @@ button:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* クリックされたときの押し込まれるような効果 */
 }
 
-footer {
-  border-top: black 1px solid;
-  --color-text-black: var(--vt-c-black);
-  text-align: center;
-  padding: 20px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
+
 
 #parents-references {
   display: flex;
@@ -174,7 +167,64 @@ footer {
   text-decoration: underline;
 }
 
+#ad {
+  height: 300px;
+  width: 100%;
+
+
+}
+
+footer {
+  border-top: black 1px solid;
+  --color-text-black: var(--vt-c-black);
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 250px;
+}
+
 footer p {
   margin: 0;
 }
+
+/* メディアクエリを追加 */
+@media (max-width: 600px) {
+  body {
+  padding-bottom: 20px; /* フッターの下に余白を追加 */
+}
+  div {
+    padding: 10px;
+    max-width: 100%; /* divの最大幅を100%に設定 */
+    box-sizing: border-box; /* パディングとボーダーを幅に含める */
+  }
+
+  input[type='number'] {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
+
+  footer {
+  position: relative; /* 固定位置から相対位置へ変更 */
+  width: 100%;
+  height: auto; /* フッターの高さを自動に設定 */
+  padding: 20px;
+  border-top: black 1px solid;
+  text-align: center;
+}
+
+  #references {
+    width: 100%;
+  }
+}
+
 </style>
