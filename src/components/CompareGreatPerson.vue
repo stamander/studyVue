@@ -85,7 +85,7 @@ const references: Ref<Array<{ link: string; text: string; accessDate: string }>>
     </div>
   </div>
   <footer>
-    <p>© 2024 stamander</p>
+    <p>© 2024 atsushi.iida</p>
     <div id="parents-references">
       <div id="references">
         <p>参考文献</p>
