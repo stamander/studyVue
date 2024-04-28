@@ -1,0 +1,52 @@
+name: Deploy Resource
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  release:
+    name: Release Process
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x' 
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Upload to AWS S3
+        run: aws s3 cp dist/ s3://${{ secrets.AWS_S3_BUCKET }}/ --recursive
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_ACCESSKEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_SECRETKEY }}
+          AWS_REGION: 'ap-northeast-1'
+
+      - name: Invalidate CloudFront Cache
+        uses:  chetan/invalidate-cloudfront-action@v1.2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_ACCESSKEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_SECRETKEY }}
+          AWS_REGION: 'ap-northeast-1'
+          DISTRIBUTION: ${{ secrets.AWS_CLOUD_FRONT_DISTRIBUTION }}
+          PATHS: '/*'
+
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
