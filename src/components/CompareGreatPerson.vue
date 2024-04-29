@@ -52,14 +52,14 @@ const references: Ref<Array<{ link: string; text: string; accessDate: string }>>
 <template>
   <div style="width: 800px">
     <div id="explain">
-      <h3>あなたの年齢を入れて偉人と出来事を比較してみましょう。</h3>
-      <h3>自分と同じ年齢の時に、偉人が何をしていたのかがわかります。</h3>
+      <h3>あなたの年齢を入れて有名人と出来事を比較してみましょう。</h3>
+      <h3>自分と同じ年齢の時に、有名人が何をしていたのかがわかります。</h3>
     </div>
 
     <div id="main-contents">
       <h3>あなたはおいくつですか？</h3>
       <input type="number" v-model.number="age" placeholder="年齢を入力してください" />
-      <button @click="submit">偉人と比較する</button>
+      <button @click="submit">有名人と比較する</button>
       <div id="results" v-if="submitted">
         あなたは{{ age }}歳です。
         <div v-for="(achievement, index) in filteredAchievements" :key="index">
