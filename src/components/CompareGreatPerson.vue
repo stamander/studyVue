@@ -96,9 +96,6 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       </p>
     </div>
     <div id="ad"></div>
-  </div>
-  <footer>
-    <p>© 2024 atsushi.iida</p>
     <div id="parents-references">
       <div id="references">
         <p>参考文献</p>
@@ -115,13 +112,17 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
         </li>
       </div>
     </div>
+  </div>
+  <footer>
+    <p>© 2024 atsushi.iida</p>
   </footer>
 </template>
 
 <style scoped>
 #explain,
 #main-contents,
-#inquiry {
+#inquiry,
+#ad {
   border-bottom: 1px solid #cccccc;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -175,8 +176,7 @@ button:active {
   justify-content: center;
 }
 #references {
-  width: 50%;
-  margin: auto 0;
+  margin: 0 0 100px 0;
   text-align: left;
 }
 
@@ -198,7 +198,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 250px;
+  background-color: white;
 }
 
 footer p {
