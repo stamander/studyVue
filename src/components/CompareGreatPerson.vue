@@ -80,6 +80,14 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
           {{ achievement.name }}は{{ achievement.event }}
         </div>
       </div>
+      <div v-else>
+        <div class="example">入力例:23
+          <br>
+          <p>あなたは23歳です。</p>
+          <br>
+          <p>スティーブ・ジョブズはアップルの次世代コンピュータ、Lisaの開発をリードしました。</p>
+        </div>
+      </div>
     </div>
 
     <div id="inquiry">
@@ -168,6 +176,9 @@ button:hover {
 button:active {
   background-color: #366e35; /* クリック時にさらに暗い色へ */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* クリックされたときの押し込まれるような効果 */
+}
+.example{
+  color: gray;
 }
 
 #parents-references {
