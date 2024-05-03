@@ -1,32 +1,14 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterView} from 'vue-router'
+import Header from './components/OriginalHeader.vue'
+import Footer from './components/OriginalFooter.vue'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper"></div>
-  </header>
+  <Header />
 
   <RouterView />
-  <footer>
-    <p>
-      <a
-      href="https://forms.gle/Xkj7LLdowVv4mBc7A"
-      target="_blank"
-      style="text-decoration: underline"
-      >お問い合わせ</a
-      >
-    </p>
-    <p>
-      <a
-      href="/privacyPolicy/"
-      target="_blank"
-      style="text-decoration: underline"
-      >プライバシーポリシー</a
-      >
-    </p>
-    <p>© 2024 atsushi.iida</p>
-  </footer>
+  <Footer />
 </template>
 
 <style scoped>
@@ -102,16 +84,6 @@ footer p {
 
     padding: 1rem 0;
     margin-top: 1rem;
-  }
-}
-@media (max-width: 600px) {
-  footer {
-    position: relative; /* 固定位置から相対位置へ変更 */
-    width: 100%;
-    height: auto; /* フッターの高さを自動に設定 */
-    padding: 20px;
-    border-top: black 1px solid;
-    text-align: center;
   }
 }
 </style>

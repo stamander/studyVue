@@ -91,20 +91,6 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       </div>
     </div>
 
-    <div id="inquiry">
-      <h3>
-        <a
-          href="https://forms.gle/Xkj7LLdowVv4mBc7A"
-          target="_blank"
-          style="text-decoration: underline"
-          >お問い合わせはこちら</a
-        >
-      </h3>
-      <p>
-        内容が間違っている、この人物を入れて欲しい等あればぜひお問い合わせフォームからお願いいたします。
-      </p>
-    </div>
-    <div id="ad"></div>
     <div id="parents-references">
       <div id="references">
         <p>参考文献</p>
@@ -121,6 +107,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
         </li>
       </div>
     </div>
+    <div id="ad"></div>
   </div>
 </template>
 
