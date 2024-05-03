@@ -81,10 +81,11 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
         </div>
       </div>
       <div v-else>
-        <div class="example">入力例:23
-          <br>
+        <div class="example">
+          入力例:23
+          <br />
           <p>あなたは23歳です。</p>
-          <br>
+          <br />
           <p>スティーブ・ジョブズはアップルの次世代コンピュータ、Lisaの開発をリードしました。</p>
         </div>
       </div>
@@ -121,9 +122,6 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       </div>
     </div>
   </div>
-  <footer>
-    <p>© 2024 atsushi.iida</p>
-  </footer>
 </template>
 
 <style scoped>
@@ -177,7 +175,7 @@ button:active {
   background-color: #366e35; /* クリック時にさらに暗い色へ */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* クリックされたときの押し込まれるような効果 */
 }
-.example{
+.example {
   color: gray;
 }
 
@@ -198,22 +196,6 @@ button:active {
 #ad {
   height: 300px;
   width: 100%;
-}
-
-footer {
-  border-top: black 1px solid;
-  --color-text-black: var(--vt-c-black);
-  text-align: center;
-  padding: 20px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
-}
-
-footer p {
-  margin: 0;
 }
 
 /* メディアクエリを追加 */
@@ -237,15 +219,6 @@ footer p {
   button {
     padding: 10px 20px;
     font-size: 0.8rem;
-  }
-
-  footer {
-    position: relative; /* 固定位置から相対位置へ変更 */
-    width: 100%;
-    height: auto; /* フッターの高さを自動に設定 */
-    padding: 20px;
-    border-top: black 1px solid;
-    text-align: center;
   }
 
   #references {
