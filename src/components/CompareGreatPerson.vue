@@ -50,6 +50,11 @@ const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string
     link: 'https://ijin-age.info/',
     text: '偉人有名人年齢調査',
     accessDate: '2024年04月27日'
+  },
+  {
+    link: 'https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%BC%E3%83%9E%E3%82%B9%E3%83%BB%E3%82%A8%E3%82%B8%E3%82%BD%E3%83%B3',
+    text: 'トーマス・エジソン - Wikipedia',
+    accessDate: '2024年05月08日'
   }
 ])
 
