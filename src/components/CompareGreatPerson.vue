@@ -55,7 +55,8 @@ const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string
     link: 'https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%BC%E3%83%9E%E3%82%B9%E3%83%BB%E3%82%A8%E3%82%B8%E3%82%BD%E3%83%B3',
     text: 'トーマス・エジソン - Wikipedia',
     accessDate: '2024年05月08日'
-  }
+  },
+
 ])
 
 const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate: string }>> = ref([
@@ -63,7 +64,17 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
     text: '世界の偉人伝未来を作った10人',
     writer: '西東社',
     publicationDate: '2016年06月14日'
-  }
+  },
+  {
+    text: '想像の狂気',
+    writer: 'ニール・ゲイブラー',
+    publicationDate: '2017年06月01日'
+  },
+  {
+    text: 'コミック版 世界の伝記 ウォルトディズニー',
+    writer: '中 祥人',
+    publicationDate: '2013年03月'
+  },
 ])
 </script>
 
