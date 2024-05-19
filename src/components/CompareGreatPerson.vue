@@ -56,6 +56,11 @@ const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string
     text: 'トーマス・エジソン - Wikipedia',
     accessDate: '2024年05月08日'
   },
+  {
+    link: 'https://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A9%E3%83%AB%E3%83%88%E3%83%BB%E3%83%87%E3%82%A3%E3%82%BA%E3%83%8B%E3%83%BC',
+    text: 'ウォルトディズニー - Wikipedia',
+    accessDate: '2024年05月19日'
+  },
 
 ])
 
