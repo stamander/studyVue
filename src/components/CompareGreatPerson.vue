@@ -66,7 +66,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
     publicationDate: '2016年06月14日'
   },
   {
-    text: '想像の狂気',
+    text: '創造の狂気',
     writer: 'ニール・ゲイブラー',
     publicationDate: '2017年06月01日'
   },
