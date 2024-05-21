@@ -65,8 +65,7 @@ const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string
     link: 'https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%A4%E3%83%96%E3%83%A9%E3%83%8F%E3%83%A0%E3%83%BB%E3%83%AA%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%B3',
     text: 'エイブラハム・リンカーン - Wikipedia',
     accessDate: '2024年05月21日'
-  },
-
+  }
 ])
 
 const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate: string }>> = ref([
@@ -84,7 +83,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
     text: 'コミック版 世界の伝記 ウォルトディズニー',
     writer: '中 祥人',
     publicationDate: '2013年03月'
-  },
+  }
 ])
 </script>
 
@@ -119,7 +118,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 
     <div id="parents-references">
       <div id="references">
-        <p>参考文献</p>
+        <h3>参考文献</h3>
         <li v-for="(reference, index) in referencesSite" :key="index">
           <a :href="reference.link" target="_blank" class="reference-link">
             {{ reference.text }}
@@ -132,6 +131,14 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
           <span class="publicDate">出版日:{{ reference.publicationDate }}</span>
         </li>
       </div>
+    </div>
+    <div>
+      <h3>ライセンス</h3>
+      <p>
+        この文書の一部にはWikipediaのコンテンツを含んでおり、これは
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+        ライセンスの下で利用できます。他の参考文献からの情報については、各文献の著作権に従ってください。
+      </p>
     </div>
     <div id="ad"></div>
   </div>

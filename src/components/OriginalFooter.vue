@@ -1,16 +1,5 @@
 <template>
   <footer>
-
-    <p>
-      本文は
-      <a
-        href="https://creativecommons.org/licenses/by-sa/3.0/"
-        target="_blank"
-        style="text-decoration: underline"
-        >CC BY-SA 3.0</a
-      >
-      ライセンスの下で利用できます。
-    </p>
     <p>
       <a
         href="https://forms.gle/Xkj7LLdowVv4mBc7A"
