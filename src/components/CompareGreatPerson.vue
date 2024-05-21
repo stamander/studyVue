@@ -65,6 +65,21 @@ const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string
     link: 'https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%A4%E3%83%96%E3%83%A9%E3%83%8F%E3%83%A0%E3%83%BB%E3%83%AA%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%B3',
     text: 'エイブラハム・リンカーン - Wikipedia',
     accessDate: '2024年05月21日'
+  },
+  {
+    link: 'https://ja.wikipedia.org/wiki/%E7%B9%94%E7%94%B0%E4%BF%A1%E9%95%B7',
+    text: '織田信長 - Wikipedia',
+    accessDate: '2024年05月21日'
+  },
+  {
+    link: 'https://ja.wikipedia.org/wiki/%E8%B1%8A%E8%87%A3%E7%A7%80%E5%90%89',
+    text: '豊臣秀吉 - Wikipedia',
+    accessDate: '2024年05月21日'
+  },
+  {
+    link: 'https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B7%9D%E5%AE%B6%E5%BA%B7',
+    text: '徳川家康 - Wikipedia',
+    accessDate: '2024年05月21日'
   }
 ])
 
