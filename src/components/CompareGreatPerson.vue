@@ -136,7 +136,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       <h3>ライセンス</h3>
       <p>
         この文書の一部にはWikipediaのコンテンツを含んでおり、これは
-        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" class="reference-link">CC BY-SA 3.0</a>
         ライセンスの下で利用できます。他の参考文献からの情報については、各文献の著作権に従ってください。
       </p>
     </div>
