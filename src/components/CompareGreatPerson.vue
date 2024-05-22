@@ -117,7 +117,8 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       <div id="results" v-if="submitted">
         あなたは{{ age }}歳です。
         <div v-for="(achievement, index) in filteredAchievements" :key="index">
-          {{ achievement.name }}は{{ achievement.event }}
+          <span class="person-name">{{ achievement.name }}</span><br>
+          {{ achievement.event }}
         </div>
       </div>
       <div v-else>
@@ -126,7 +127,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
           <br />
           <p>あなたは23歳です。</p>
           <br />
-          <p>スティーブ・ジョブズはアップルの次世代コンピュータ、Lisaの開発をリードしました。</p>
+          <p>スティーブ・ジョブズ:アップルの次世代コンピュータ、Lisaの開発をリードしました。</p>
         </div>
       </div>
     </div>
@@ -167,6 +168,10 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
   border-bottom: 1px solid #cccccc;
   padding-bottom: 20px;
   margin-bottom: 20px;
+}
+
+.person-name {
+  font-weight: bold;
 }
 
 body {
