@@ -92,6 +92,11 @@ const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string
     accessDate: '2024年05月21日'
   },
   {
+    link: 'https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%86%E3%82%A3%E3%83%BC%E3%83%96%E3%83%BB%E3%82%B8%E3%83%A7%E3%83%96%E3%82%BA',
+    text: 'スティーブ・ジョブズ - Wikipedia',
+    accessDate: '2024年05月21日'
+  },
+  {
     link: 'https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%AB%E3%83%99%E3%83%AB%E3%83%88%E3%83%BB%E3%82%A2%E3%82%A4%E3%83%B3%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%A4%E3%83%B3',
     text: 'アルベルト・アインシュタイン - Wikipedia',
     accessDate: '2024年05月21日'
