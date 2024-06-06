@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div>
-      <h3>ライセンス</h3>
+      <h4>ライセンス</h4>
       <p>
         この文書の一部にはWikipediaのコンテンツを含んでおり、これは
         <a
@@ -26,7 +26,7 @@
         >プライバシーポリシー</a
       >
     </p>
-    <p>© 2024 atsushi.iida</p>
+    <p>© 2024 great-compare.net</p>
   </footer>
 </template>
 
@@ -35,7 +35,7 @@ footer {
   border-top: black 1px solid;
   --color-text-black: var(--vt-c-black);
   text-align: center;
-  padding: 20px;
+  padding: 5px;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -52,9 +52,10 @@ footer p {
     position: relative; /* 固定位置から相対位置へ変更 */
     width: 100%;
     height: auto; /* フッターの高さを自動に設定 */
-    padding: 20px;
+    padding: 5px;
     border-top: black 1px solid;
     text-align: center;
+    font-size: 10px;
   }
 }
 </style>
