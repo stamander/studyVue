@@ -137,7 +137,8 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       <div id="results" v-if="submitted">
         あなたは{{ age }}歳です。
         <div v-for="(achievement, index) in filteredAchievements" :key="index">
-          <span class="person-name">{{ achievement.name }}</span><br>
+          <span class="person-name">{{ achievement.name }}</span
+          ><br />
           {{ achievement.event }}
         </div>
       </div>
@@ -150,6 +151,10 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
           <p>スティーブ・ジョブズ:アップルの次世代コンピュータ、Lisaの開発をリードしました。</p>
         </div>
       </div>
+    </div>
+
+    <div id="ad">
+      <amp-ad width="320" height="100" type="zucks" data-frame-id="_e99a9bc548"> </amp-ad>
     </div>
 
     <div id="parents-references">
@@ -168,15 +173,6 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
         </li>
       </div>
     </div>
-    <div>
-      <h3>ライセンス</h3>
-      <p>
-        この文書の一部にはWikipediaのコンテンツを含んでおり、これは
-        <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" class="reference-link">CC BY-SA 3.0</a>
-        ライセンスの下で利用できます。他の参考文献からの情報については、各文献の著作権に従ってください。
-      </p>
-    </div>
-    <div id="ad"></div>
   </div>
 </template>
 
@@ -245,7 +241,7 @@ button:active {
   justify-content: center;
 }
 #references {
-  margin: 0 0 100px 0;
+  margin: 0 0 200px 0;
   text-align: left;
 }
 
@@ -253,10 +249,6 @@ button:active {
   text-decoration: underline;
 }
 
-#ad {
-  height: 300px;
-  width: 100%;
-}
 
 /* メディアクエリを追加 */
 @media (max-width: 600px) {
