@@ -1,7 +1,7 @@
 <template>
   <header>
     <router-link to="/">
-      <h1><img class="logo" src="/tenbin.png" /> CompareGreatPerson</h1>
+      <h1><img class="logo" src="/tenbin.png" alt="ロゴ" /> CompareGreatPerson</h1>
     </router-link>
   </header>
 </template>
