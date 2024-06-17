@@ -123,6 +123,9 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 </script>
 
 <template>
+    <div id="ad">
+      <amp-ad width="320" height="100" type="zucks" data-frame-id="_e99a9bc548"> </amp-ad>
+    </div>
   <div style="width: 800px">
     <div id="explain">
       <h3>あなたの年齢を入れて有名人と出来事を比較してみましょう。</h3>
