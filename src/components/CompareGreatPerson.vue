@@ -2,34 +2,82 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 
+// データの定義
 const age = ref(0)
 const submitted = ref(false)
 const achievements = ref<
-  Array<{ name: string; achievements: Array<{ age: number; event: string }> }>
+  Array<{ id: number; name: string; achievements: Array<{ age: number; event: string }> }>
 >([])
+
+// 選択されたインデックスを保持するための変数
+const activeIndex = ref<number | null>(null)
+
+type Achievement = { id: number; name: string; age: number; event: string }
+
+function shuffleArray(array: Achievement[]): Achievement[] {
+  return array.sort(() => Math.random() - 0.5)
+}
+
+// セッションストレージからデータを取得する関数
+function getStoredAchievements(ageValue: string, today: string): Achievement[] | null {
+  const storedDate = sessionStorage.getItem(`shuffleDate-${ageValue}`)
+  const storedAchievements = sessionStorage.getItem(`shuffledAchievements-${ageValue}`)
+
+  if (storedDate === today && storedAchievements) {
+    return JSON.parse(storedAchievements)
+  }
+  return null
+}
+
+// セッションストレージにデータを保存する関数
+function storeAchievements(ageValue: string, today: string, achievements: Achievement[]) {
+  sessionStorage.setItem(`shuffleDate-${ageValue}`, today)
+  sessionStorage.setItem(`shuffledAchievements-${ageValue}`, JSON.stringify(achievements))
+}
 
 onMounted(async () => {
   const response = await fetch('/greatPerson.json')
   achievements.value = await response.json()
 })
 
-const filteredAchievements: ComputedRef<Array<{ name: string; age: number; event: string }>> =
-  computed(() => {
-    return achievements.value
+// フィルタリングされた業績を計算
+const filteredAchievements: ComputedRef<Achievement[]> = computed(() => {
+  const today = new Date().toISOString().split('T')[0] // 今日の日付を取得
+  const ageValue = age.value.toString() // 年齢を文字列に変換
+
+  // セッションストレージからデータを取得
+  const storedAchievements = getStoredAchievements(ageValue, today)
+
+  if (storedAchievements) {
+    return storedAchievements
+  } else {
+    // 新しいシャッフル結果を生成
+    const newAchievements = achievements.value
       .flatMap((person) =>
         person.achievements.map((achievement) => ({
+          id: person.id,
           name: person.name,
           age: achievement.age,
           event: achievement.event
         }))
       )
       .filter((a) => a.age === age.value)
-  })
 
-const submit = (): void => {
+    const shuffledAchievements = shuffleArray(newAchievements).slice(0, 3) // シャッフルして最初の3つを選択
+
+    // 新しいシャッフル結果と日付をセッションストレージに保存
+    storeAchievements(ageValue, today, shuffledAchievements)
+
+    return shuffledAchievements
+  }
+})
+
+// フォーム送信の処理
+const compareGreatPersonSubmit = (): void => {
   submitted.value = true
 }
 
+// 年齢の変更を監視し、エラーメッセージを表示
 watch(age, () => {
   submitted.value = false
 })
@@ -40,6 +88,10 @@ watch(age, (newAge) => {
   ageError.value = newAge <= 0 || !Number.isInteger(newAge)
 })
 
+// イベントの表示・非表示を切り替えるためのメソッド
+const toggleEvent = (index: number): void => {
+  activeIndex.value = activeIndex.value === index ? null : index
+}
 const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string }>> = ref([
   {
     link: 'https://wayohoo.com/article/3421',
@@ -123,9 +175,9 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 </script>
 
 <template>
-    <div id="ad">
-      <amp-ad width="320" height="100" type="zucks" data-frame-id="_e99a9bc548"> </amp-ad>
-    </div>
+  <div id="ad">
+    <amp-ad width="320" height="100" type="zucks" data-frame-id="_e99a9bc548"> </amp-ad>
+  </div>
   <div style="width: 800px">
     <div id="explain">
       <h3>あなたの年齢を入れて有名人と出来事を比較してみましょう。</h3>
@@ -136,15 +188,21 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       <h3>あなたはおいくつですか？</h3>
       <input type="number" v-model.number="age" placeholder="年齢を入力してください" />
       <p v-if="ageError" style="color: red">年齢は数値で入力してください。</p>
-      <button @click="submit">有名人と比較する</button>
+      <button class="dark-green-button" @click="compareGreatPersonSubmit">有名人と比較する</button>
+
       <div id="results" v-if="submitted">
         あなたは{{ age }}歳です。
         <div v-for="(achievement, index) in filteredAchievements" :key="index">
-          <span class="person-name">{{ achievement.name }}</span
-          ><br />
-          {{ achievement.event }}
+          <button class="person-name light-green-button" @click="toggleEvent(index)">
+            {{ achievement.name }}
+          </button>
+          <div v-if="activeIndex === index">
+            {{ achievement.event }}
+          </div>
         </div>
+        内容は毎日変わります！明日もチェックしてみてください！
       </div>
+
       <div v-else>
         <div class="example">
           入力例:23
@@ -211,29 +269,55 @@ input[type='number'] {
   box-sizing: border-box;
 }
 
-button {
-  background-color: #4caf50; /* 鮮やかなグリーン */
+/* 濃いグリーンのボタンスタイル */
+.dark-green-button {
+  background-color: #4caf50; /* 濃いグリーン */
   color: white;
-  padding: 15px 30px; /* 適切なパディングでボタンを大きく表示 */
-  font-size: 1rem; /* 読みやすいフォントサイズ */
-  font-weight: bold; /* ボタンのテキストを強調 */
-  border: none; /* 枠線を取り除く */
-  border-radius: 5px; /* やや丸みを帯びたボーダー */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* ソフトなシャドウで立体感を演出 */
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition:
     background-color 0.3s,
-    box-shadow 0.3s; /* スムーズな遷移効果 */
+    box-shadow 0.3s;
 }
 
-button:hover {
-  background-color: #3e8e41; /* ホバー時に暗いグリーンへ変化 */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* シャドウを強調してクリック可能なインタラクションを示す */
+.dark-green-button:hover {
+  background-color: #3e8e41; /* ホバー時に暗いグリーンへ */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-button:active {
-  background-color: #366e35; /* クリック時にさらに暗い色へ */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* クリックされたときの押し込まれるような効果 */
+.dark-green-button:active {
+  background-color: #366e35; /* クリック時さらに暗い色に */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+/* 薄いグリーンのボタンスタイル */
+.light-green-button {
+  background-color: white; /* 薄いグリーン */
+  color: #4caf50;
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #81c784; /* 薄い緑色のボーダー */
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.light-green-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.light-green-button:active {
+  background-color: #66bb6a; /* クリック時さらに濃い色に */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .example {
   color: gray;
 }
@@ -251,7 +335,6 @@ button:active {
 .reference-link {
   text-decoration: underline;
 }
-
 
 /* メディアクエリを追加 */
 @media (max-width: 600px) {
