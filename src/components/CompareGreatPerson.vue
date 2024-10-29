@@ -6,11 +6,34 @@ import type { Ref, ComputedRef } from 'vue'
 const age = ref(0)
 const submitted = ref(false)
 const achievements = ref<
-  Array<{ name: string; achievements: Array<{ age: number; event: string }> }>
+  Array<{ id: number; name: string; achievements: Array<{ age: number; event: string }> }>
 >([])
 
 // 選択されたインデックスを保持するための変数
 const activeIndex = ref<number | null>(null)
+
+type Achievement = { id: number; name: string; age: number; event: string }
+
+function shuffleArray(array: Achievement[]): Achievement[] {
+  return array.sort(() => Math.random() - 0.5)
+}
+
+// セッションストレージからデータを取得する関数
+function getStoredAchievements(ageValue: string, today: string): Achievement[] | null {
+  const storedDate = sessionStorage.getItem(`shuffleDate-${ageValue}`)
+  const storedAchievements = sessionStorage.getItem(`shuffledAchievements-${ageValue}`)
+
+  if (storedDate === today && storedAchievements) {
+    return JSON.parse(storedAchievements)
+  }
+  return null
+}
+
+// セッションストレージにデータを保存する関数
+function storeAchievements(ageValue: string, today: string, achievements: Achievement[]) {
+  sessionStorage.setItem(`shuffleDate-${ageValue}`, today)
+  sessionStorage.setItem(`shuffledAchievements-${ageValue}`, JSON.stringify(achievements))
+}
 
 onMounted(async () => {
   const response = await fetch('/greatPerson.json')
@@ -18,18 +41,36 @@ onMounted(async () => {
 })
 
 // フィルタリングされた業績を計算
-const filteredAchievements: ComputedRef<Array<{ name: string; age: number; event: string }>> =
-  computed(() => {
-    return achievements.value
+const filteredAchievements: ComputedRef<Achievement[]> = computed(() => {
+  const today = new Date().toISOString().split('T')[0] // 今日の日付を取得
+  const ageValue = age.value.toString() // 年齢を文字列に変換
+
+  // セッションストレージからデータを取得
+  const storedAchievements = getStoredAchievements(ageValue, today)
+
+  if (storedAchievements) {
+    return storedAchievements
+  } else {
+    // 新しいシャッフル結果を生成
+    const newAchievements = achievements.value
       .flatMap((person) =>
         person.achievements.map((achievement) => ({
+          id: person.id,
           name: person.name,
           age: achievement.age,
           event: achievement.event
         }))
       )
       .filter((a) => a.age === age.value)
-  })
+
+    const shuffledAchievements = shuffleArray(newAchievements).slice(0, 3) // シャッフルして最初の3つを選択
+
+    // 新しいシャッフル結果と日付をセッションストレージに保存
+    storeAchievements(ageValue, today, shuffledAchievements)
+
+    return shuffledAchievements
+  }
+})
 
 // フォーム送信の処理
 const compareGreatPersonSubmit = (): void => {
@@ -159,6 +200,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
             {{ achievement.event }}
           </div>
         </div>
+        内容は毎日変わります！明日もチェックしてみてください！
       </div>
 
       <div v-else>
