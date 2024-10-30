@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/tenbin.png" alt="ロゴ">
+    <link rel="icon" href="/tenbin.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="このWebアプリは、年齢を入力すると過去の偉人と比較できます。過去の偉人が自分と同じ年齢の時に何をしたのかを知ることができます。">
+    <meta name="description" content="有名人の年齢比較アプリ！年齢を入力して、過去の偉人があなたと同じ年齢の時に何をしていたかを簡単にチェックしましょう。">
     <title>あなたの同じ年齢の時、有名人は何をしていた？</title>
-
+    
+    <meta property="og:title" content="有名人の年齢比較アプリ">
+    <meta property="og:description" content="年齢を入力して、過去の有名人があなたと同じ年齢の時に何をしていたかを簡単にチェックしましょう。">
+    <meta property="og:url" content="https://great-compare.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="年齢比較アプリ">
+    <meta property="og:image" content="https://great-compare.net/tenbin.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4JV43N6TR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -15,9 +22,17 @@
 
       gtag('config', 'G-L4JV43N6TR');
     </script>
-
-    <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "有名人の年齢比較アプリ",
+        "description": "年齢を入力して、過去の偉人と比較できるアプリです。",
+        "url": "https://great-compare.net/",
+        "applicationCategory": "Entertainment"
+      }
+      </script>
   </head>
   <body>
     <div id="app"></div>

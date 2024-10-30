@@ -175,9 +175,6 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 </script>
 
 <template>
-  <div id="ad">
-    <amp-ad width="320" height="100" type="zucks" data-frame-id="_e99a9bc548"> </amp-ad>
-  </div>
   <div style="width: 800px">
     <div id="explain">
       <h3>あなたの年齢を入れて有名人と出来事を比較してみましょう。</h3>
@@ -214,10 +211,6 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       </div>
     </div>
 
-    <div id="ad">
-      <amp-ad width="320" height="100" type="zucks" data-frame-id="_e99a9bc548"> </amp-ad>
-    </div>
-
     <div id="parents-references">
       <div id="references">
         <h3>参考文献</h3>
@@ -240,8 +233,8 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 <style scoped>
 #explain,
 #main-contents,
-#inquiry,
-#ad {
+#inquiry
+{
   border-bottom: 1px solid #cccccc;
   padding-bottom: 20px;
   margin-bottom: 20px;
