@@ -185,7 +185,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
       <h3>あなたはおいくつですか？</h3>
       <input type="number" v-model.number="age" placeholder="年齢を入力してください" />
       <p v-if="ageError" style="color: red">年齢は数値で入力してください。</p>
-      <button class="dark-green-button" @click="compareGreatPersonSubmit">有名人と比較する</button>
+      <button class="dark-green-button" @click="compareGreatPersonSubmit">偉人と比較する</button>
 
       <div id="results" v-if="submitted">
         あなたは{{ age }}歳です。
@@ -233,8 +233,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 <style scoped>
 #explain,
 #main-contents,
-#inquiry
-{
+#inquiry {
   border-bottom: 1px solid #cccccc;
   padding-bottom: 20px;
   margin-bottom: 20px;
