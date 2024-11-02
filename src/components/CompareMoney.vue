@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import type { Ref } from 'vue'
+import IncomeChart from './IncomeChart.vue'
 
 // データの定義
 const age = ref(0)
@@ -114,7 +115,9 @@ const getIncomeRank = (): number | null => {
           >
           <span v-else>測定不可です</span>
         </p>
-        <div>グラフ</div>
+        <div class="chart-container" style="height: 40vh">
+          <IncomeChart />
+        </div>
       </div>
 
       <div v-else>
