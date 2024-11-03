@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CompareGreatPersonView from '../views/CompareGreatPersonView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
+import CompareMoneyView from '../views/CompareMoneyView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: CompareGreatPersonView
+    },
+    {
+      path: '/CompareMoney',
+      name: 'CompareMoney',
+      component: CompareMoneyView
     },
     {
       path: '/privacyPolicy',
