@@ -3,6 +3,8 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 import {
   Chart as ChartJS,
   Title,
@@ -13,23 +15,23 @@ import {
   LinearScale
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import * as chartConfig from '@/incomeChartConfig'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-export default {
+export default defineComponent({
   name: 'IncomeChart',
   components: {
     Bar
   },
-  computed: {
-    chartData() {
-      // dataオブジェクトを深くコピーして返す
-      return JSON.parse(JSON.stringify(chartConfig.data))
+  props: {
+    chartData: {
+      type: Object as PropType<any>,
+      required: true
     },
-    chartOptions() {
-      return chartConfig.options
+    chartOptions: {
+      type: Object as PropType<any>,
+      required: true
     }
   }
-}
+})
 </script>

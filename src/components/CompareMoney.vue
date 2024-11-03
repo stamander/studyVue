@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import type { Ref } from 'vue'
 import IncomeChart from './IncomeChart.vue'
+import { incomeDataByAgeGroup, options as importedChartOptions } from '@/incomeChartConfig'
 
 // データの定義
 const age = ref(0)
@@ -16,29 +17,7 @@ const incomeDistribution = ref<{
     percentiles: { [key: string]: number }
   }
 }>({})
-
-// 月収分布データを取得
-onMounted(async () => {
-  const response = await fetch('/incomeDistribution.json')
-  incomeDistribution.value = await response.json()
-})
-
-// フォーム送信の処理
-const compareMoneySubmit = (): void => {
-  if (age.value > 0 && income.value > 0) {
-    submitted.value = true
-  }
-}
-
-// 年齢と月収のエラーチェック
-watch(age, (newAge) => {
-  ageError.value = newAge <= 0 || !Number.isInteger(newAge)
-  submitted.value = false
-})
-watch(income, (newIncome) => {
-  incomeError.value = newIncome <= 0 || !Number.isInteger(newIncome)
-  submitted.value = false
-})
+const selectedData = ref(incomeDataByAgeGroup['20-24'])
 
 // 年齢層の範囲を定義するオブジェクト
 const ageGroups = {
@@ -53,6 +32,91 @@ const ageGroups = {
   '60-64': { min: 60, max: 64 },
   '65-69': { min: 65, max: 69 },
   '70+': { min: 70, max: 100 } // 上限は適当に設定
+}
+
+// 年齢に基づいてデータセットを選択する関数
+const selectDataByAge = (age: number) => {
+  if (age >= 20 && age <= 24) return incomeDataByAgeGroup['20-24']
+  if (age >= 25 && age <= 29) return incomeDataByAgeGroup['25-29']
+  if (age >= 30 && age <= 34) return incomeDataByAgeGroup['30-34']
+  if (age >= 35 && age <= 39) return incomeDataByAgeGroup['35-39']
+  if (age >= 40 && age <= 44) return incomeDataByAgeGroup['40-44']
+  if (age >= 45 && age <= 49) return incomeDataByAgeGroup['45-49']
+  if (age >= 50 && age <= 54) return incomeDataByAgeGroup['50-54']
+  if (age >= 55 && age <= 59) return incomeDataByAgeGroup['55-59']
+  if (age >= 60 && age <= 64) return incomeDataByAgeGroup['60-64']
+  if (age >= 65 && age <= 69) return incomeDataByAgeGroup['65-69']
+  if (age >= 70) return incomeDataByAgeGroup['70+']
+
+  // 他の年代の条件も追加
+  return null
+}
+
+const incomeRanges = [
+  { min: 10, max: 11.9 },
+  { min: 12, max: 13.9 },
+  { min: 14, max: 15.9 },
+  { min: 16, max: 17.9 },
+  { min: 18, max: 19.9 },
+  { min: 20, max: 21.9 },
+  { min: 22, max: 23.9 },
+  { min: 24, max: 25.9 },
+  { min: 26, max: 27.9 },
+  { min: 28, max: 29.9 },
+  { min: 30, max: 31.9 },
+  { min: 32, max: 33.9 },
+  { min: 34, max: 35.9 },
+  { min: 36, max: 37.9 },
+  { min: 40, max: 44.9 },
+  { min: 45, max: 49.9 },
+  { min: 50, max: 59.9 },
+  { min: 60, max: 69.9 },
+  { min: 70, max: 79.9 },
+  { min: 80, max: 89.9 },
+  { min: 90, max: 99.9 },
+  { min: 100, max: Infinity } // 100万円以上
+]
+
+// 年齢に基づくエラーチェック関数
+const checkAgeError = (newAge: number) => {
+  ageError.value = newAge <= 0 || !Number.isInteger(newAge)
+  submitted.value = false // エラーが発生した場合 submitted をリセット
+}
+
+// データセットと色を更新する関数
+const updateSelectedDataAndColor = (newAge: number) => {
+  const data = selectDataByAge(newAge)
+  if (data) {
+    selectedData.value = data
+    updateChartColor() // データが確定したタイミングで色を更新
+  }
+}
+
+// 年齢の変化を監視し、エラーチェックとデータ更新を行う
+watch(age, (newAge) => {
+  checkAgeError(newAge)
+  if (!ageError.value) {
+    updateSelectedDataAndColor(newAge)
+  }
+})
+
+watch(income, (newIncome) => {
+  incomeError.value = newIncome <= 0 || !Number.isInteger(newIncome)
+  submitted.value = false
+})
+
+// 月収分布データを取得
+onMounted(async () => {
+  const response = await fetch('/incomeDistribution.json')
+  incomeDistribution.value = await response.json()
+})
+
+// フォーム送信の処理
+const compareMoneySubmit = (): void => {
+  if (age.value > 0 && income.value > 0) {
+    submitted.value = true
+    updateChartColor()
+  }
 }
 
 // 年齢に基づいて年齢層を取得する関数
@@ -77,7 +141,34 @@ const getIncomeRank = (): number | null => {
   if (incomeValue >= percentiles['90']) return 10 // 上位10%
   if (incomeValue >= percentiles['75']) return 25 // 上位25%
   if (incomeValue >= percentiles['50']) return 50
-  return -25
+  return -50
+}
+
+// -- グラフ --
+// グラフデータの初期設定
+const chartOptions = ref(importedChartOptions)
+
+// 月収に該当するインデックス番号を返す関数
+const getTargetIndex = (income: number): number | null => {
+  return incomeRanges.findIndex((range) => income >= range.min && income <= range.max)
+}
+
+// 動的に色を変更する関数
+const updateChartColor = () => {
+  const targetIndex = getTargetIndex(income.value)
+  if (
+    targetIndex === null ||
+    !selectedData.value.datasets ||
+    !selectedData.value.datasets[0].backgroundColor
+  )
+    return
+
+  // すべてのバーの色をデフォルトに戻す
+  selectedData.value.datasets[0].backgroundColor =
+    selectedData.value.datasets[0].backgroundColor.map(() => '#c8e6c9')
+
+  // 対象のインデックスの色を変更
+  selectedData.value.datasets[0].backgroundColor[targetIndex] = '#4caf50'
 }
 </script>
 
@@ -110,13 +201,13 @@ const getIncomeRank = (): number | null => {
           <span v-else-if="getIncomeRank() === 50"
             >上位50%に位置しています。頑張りが形になっていますね！💪</span
           >
-          <span v-else-if="getIncomeRank() === -25"
-            >現在は全体の下位25%以内の範囲ですが、<br />伸びしろがあります！応援しています！🚀</span
+          <span v-else-if="getIncomeRank() === -50"
+            >現在は全体の下位50%以内の範囲ですが、<br />伸びしろがあります！応援しています！🚀</span
           >
           <span v-else>測定不可です</span>
         </p>
         <div class="chart-container" style="height: 40vh">
-          <IncomeChart />
+          <IncomeChart :chartData="selectedData" :chartOptions="chartOptions" />
         </div>
       </div>
 
@@ -210,7 +301,6 @@ input[type='number'] {
 }
 
 #moneyResults {
-  background-color: #e8f5e9; /* 淡い緑色 */
   border: 2px solid #388e3c; /* 濃い緑色のボーダー */
   padding: 20px;
   border-radius: 8px;
