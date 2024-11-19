@@ -47,22 +47,6 @@ nav a:first-of-type {
   border: 0;
 }
 
-footer {
-  border-top: black 1px solid;
-  --color-text-black: var(--vt-c-black);
-  text-align: center;
-  padding: 20px;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
-  position: fixed;
-}
-
-footer p {
-  margin: 0;
-}
-
 @media (min-width: 1024px) {
   header {
     display: flex;

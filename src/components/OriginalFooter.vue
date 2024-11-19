@@ -26,6 +26,11 @@
         >プライバシーポリシー</a
       >
     </p>
+    <p>
+      <a href="/business-information" target="_blank" style="text-decoration: underline"
+        >特定商取引法に基づく表示</a
+      >
+    </p>
     <p>© 2024 great-compare.net</p>
   </footer>
 </template>
@@ -40,7 +45,6 @@ footer {
   bottom: 0;
   width: 100%;
   background-color: white;
-  position: fixed;
 }
 
 footer p {
@@ -49,7 +53,7 @@ footer p {
 
 @media (max-width: 600px) {
   footer {
-    position: relative; /* 固定位置から相対位置へ変更 */
+    position: static; /* 固定位置から相対位置へ変更 */
     width: 100%;
     height: auto; /* フッターの高さを自動に設定 */
     padding: 5px;

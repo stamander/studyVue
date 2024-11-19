@@ -4,6 +4,7 @@ import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import CompareMoneyView from '../views/CompareMoneyView.vue'
 import SuccessSubscriptionView from '../views/SuccessSubscriptionView.vue'
 import CancelSubscriptionView from '../views/CancelSubscriptionView.vue'
+import BusinessInformationView from '../views/BusinessInformationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/cancel-subscription',
       name: 'cancelSubscription',
       component: CancelSubscriptionView
+    },
+    {
+      path: '/business-information',
+      name: 'businessInformation',
+      component: BusinessInformationView
     }
   ]
 })
