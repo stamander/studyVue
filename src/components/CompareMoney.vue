@@ -181,10 +181,10 @@ const updateChartColor = () => {
     </div>
 
     <div id="main-contents">
-      <h3>あなたはおいくつですか？</h3>
+      <h3>あなたはおいくつですか？(歳)</h3>
       <input type="number" v-model.number="age" placeholder="年齢を入力してください" />
       <p v-if="ageError" style="color: red">年齢は数値で入力してください。</p>
-      <h3>あなたの月収はいくらですか？</h3>
+      <h3>あなたの月収はいくらですか？(万円)</h3>
       <input type="number" v-model.number="income" placeholder="月収を入力してください" />
       <p v-if="incomeError" style="color: red">月収は数値で入力してください。</p>
       <button class="dark-green-button" @click="compareMoneySubmit">自分の月収の分布をみる</button>
@@ -209,6 +209,9 @@ const updateChartColor = () => {
         <div class="chart-container" style="height: 40vh">
           <IncomeChart :chartData="selectedData" :chartOptions="chartOptions" />
         </div>
+        <a href="https://line.me/R/ti/p/%40242hetfw" target="_blank" class="reference-link">
+          一緒に年収をアップする方法を考えませんか？
+        </a>
       </div>
 
       <div v-else>
