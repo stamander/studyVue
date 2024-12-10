@@ -209,11 +209,7 @@ const updateChartColor = () => {
         <div class="chart-container" style="height: 40vh">
           <IncomeChart :chartData="selectedData" :chartOptions="chartOptions" />
         </div>
-        <a href="https://line.me/R/ti/p/%40242hetfw" target="_blank" class="reference-link">
-          一緒に年収をアップする方法を考えませんか？
-        </a>
       </div>
-
       <div v-else>
         <div class="example">
           入力例:23
@@ -222,6 +218,33 @@ const updateChartColor = () => {
           <br />
           <p>23歳で月収が25万だと上位25%です</p>
         </div>
+      </div>
+    </div>
+
+    <div id="ad">
+      <div id = "line-Ai-consul">
+        一緒に年収をアップする方法を考えませんか？
+        <a href="https://line.me/R/ti/p/%40242hetfw" target="_blank" class="reference-link">
+          Lineで簡単に相談する
+        </a>
+
+      </div>
+      <div id = "Be-creator">
+        <a href="https://px.a8.net/svt/ejp?a8mat=3ZLVJ8+2MNXYQ+5FA0+5YZ75" rel="nofollow">
+          <img
+            border="0"
+            width="300"
+            height="250"
+            alt=""
+            src="https://www23.a8.net/svt/bgt?aid=241205732159&wid=001&eno=01&mid=s00000025308001003000&mc=1"
+        /></a>
+        <img
+          border="0"
+          width="1"
+          height="1"
+          src="https://www10.a8.net/0.gif?a8mat=3ZLVJ8+2MNXYQ+5FA0+5YZ75"
+          alt=""
+        />
       </div>
     </div>
 
@@ -326,6 +349,19 @@ input[type='number'] {
   to {
     opacity: 1;
   }
+}
+
+#ad {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#line-Ai-consul {
+  font-size: 24px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
 }
 
 #parents-references {
