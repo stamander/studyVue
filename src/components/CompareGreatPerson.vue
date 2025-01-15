@@ -9,8 +9,6 @@ const achievements = ref<
   Array<{ id: number; name: string; achievements: Array<{ age: number; event: string }> }>
 >([])
 
-console.log("greatPerson");
-
 // 選択されたインデックスを保持するための変数
 const activeIndex = ref<number | null>(null)
 
