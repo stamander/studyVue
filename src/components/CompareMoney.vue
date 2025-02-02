@@ -173,7 +173,7 @@ const updateChartColor = () => {
 </script>
 
 <template>
-  <div style="width: 800px">
+  <div style="width: 800px; margin: auto">
     <div id="explain">
       <h3>あなたの年齢と月収を入力して、分布を確認してみましょう。</h3>
       <h3>自分の月収が全体のどの範囲に位置するかがわかります。</h3>
@@ -222,30 +222,47 @@ const updateChartColor = () => {
     </div>
 
     <div id="ad">
-      <div id = "line-Ai-consul">
-        一緒に年収をアップする方法を考えませんか？
+      <div id="line-Ai-consul">
+        一緒にあなたの年収をアップする方法を考えませんか？
+        <br />
         <a href="https://line.me/R/ti/p/%40242hetfw" target="_blank" class="reference-link">
           Lineで簡単に相談する
         </a>
-
       </div>
-      <div id = "Be-creator">
-        <a href="https://px.a8.net/svt/ejp?a8mat=3ZLVJ8+2MNXYQ+5FA0+5YZ75" rel="nofollow">
-          <img
-            border="0"
-            width="300"
-            height="250"
-            alt=""
-            src="https://www23.a8.net/svt/bgt?aid=241205732159&wid=001&eno=01&mid=s00000025308001003000&mc=1"
-        /></a>
+    </div>
+    <h2 class="PR">PR</h2>
+    <div id="PR">
+      <a href="https://amzn.to/40WbPgn" target="_blank">
         <img
-          border="0"
-          width="1"
-          height="1"
-          src="https://www10.a8.net/0.gif?a8mat=3ZLVJ8+2MNXYQ+5FA0+5YZ75"
-          alt=""
+          src="https://m.media-amazon.com/images/I/61AYqzH19ML._SY522_.jpg"
+          alt="親子で学ぶ どうしたらお金持ちになれるの？ ――人生という「リアルなゲーム」の攻略法"
         />
-      </div>
+        <h3>
+          親子で学ぶ どうしたらお金持ちになれるの？<br />
+          ――人生という「リアルなゲーム」の攻略法
+          <p class="amazon-button">▶ Amazonで確認する</p>
+        </h3>
+      </a>
+    </div>
+    <div id="PR">
+      <a href="https://amzn.to/3WP85Lj" target="_blank">
+        <img
+          src="https://m.media-amazon.com/images/I/81XV+HSEmIL._SY522_.jpg"
+          alt="大富豪からの手紙"
+        />
+        <h3>大富豪からの手紙</h3>
+        <p class="amazon-button">▶ Amazonで確認する</p>
+      </a>
+    </div>
+    <div id="PR">
+      <a href="https://amzn.to/40M513v" target="_blank">
+        <img
+          src="https://m.media-amazon.com/images/I/91xUfnWET4L._SY522_.jpg"
+          alt="漫画 バビロン大富豪の教え "
+        />
+        <h3>漫画 バビロン大富豪の教え</h3>
+        <p class="amazon-button">▶ Amazonで確認する</p>
+      </a>
     </div>
 
     <div id="parents-references">
@@ -376,6 +393,58 @@ input[type='number'] {
 
 .reference-link {
   text-decoration: underline;
+}
+h2.PR {
+  text-align: center;
+  font-size: 24px;
+  margin: 20px 0;
+}
+#PR {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  justify-content: space-evenly;
+}
+
+#PR a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+#PR img {
+  width: 100px; /* 画像サイズ調整 */
+  height: auto;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+#PR h3 {
+  font-size: 16px;
+  margin: 10px;
+  color: #222;
+}
+
+.amazon-button {
+  display: inline-block;
+  background-color: #ff9900; /* Amazonのオレンジ色 */
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.amazon-button:hover {
+  background-color: #e68a00; /* ホバー時に少し濃い色 */
 }
 
 /* メディアクエリを追加 */
