@@ -175,7 +175,7 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 </script>
 
 <template>
-  <div style="width: 800px">
+  <div style="width: 800px; margin: auto;">
     <div id="explain">
       <h3>あなたの年齢を入れて有名人と出来事を比較してみましょう。</h3>
       <h3>自分と同じ年齢の時に、有名人が何をしていたのかがわかります。</h3>
