@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const currentYear:number = new Date().getFullYear()
+</script>
+
 <template>
   <footer>
     <div>
@@ -31,7 +35,7 @@
         >特定商取引法に基づく表示</a
       >
     </p>
-    <p>© 2024 great-compare.net</p>
+    <p>© {{ currentYear }} great-compare.net</p>
   </footer>
 </template>
 
