@@ -170,6 +170,27 @@ const updateChartColor = () => {
   // 対象のインデックスの色を変更
   selectedData.value.datasets[0].backgroundColor[targetIndex] = '#4caf50'
 }
+
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void
+  }
+}
+
+
+const handleLineClick = () => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'click_line_link', {
+      event_category: 'engagement',
+      event_label: 'line誘導'
+    });
+  }
+
+  setTimeout(() => {
+    window.location.href =
+      'https://line.me/R/ti/p/%40242hetfw'
+  }, 300);
+};
 </script>
 
 <template>
@@ -225,9 +246,7 @@ const updateChartColor = () => {
       <div id="line-Ai-consul">
         一緒にあなたの年収をアップする方法を考えませんか？
         <br />
-        <a href="https://line.me/R/ti/p/%40242hetfw" target="_blank" class="reference-link">
-          Lineで簡単に相談する
-        </a>
+        <button class="line-button" @click="handleLineClick">LINEで簡単に相談する</button>
       </div>
     </div>
     <h2 class="PR">PR</h2>
@@ -379,6 +398,22 @@ input[type='number'] {
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+}
+
+.line-button {
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.line-button:hover {
+  background-color: #04a949;
 }
 
 #parents-references {
