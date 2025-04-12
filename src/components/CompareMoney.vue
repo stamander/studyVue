@@ -177,20 +177,18 @@ declare global {
   }
 }
 
-
 const handleLineClick = () => {
   if (typeof window.gtag === 'function') {
     window.gtag('event', 'click_line_link', {
       event_category: 'engagement',
       event_label: 'line誘導'
-    });
+    })
   }
 
   setTimeout(() => {
-    window.location.href =
-      'https://line.me/R/ti/p/%40242hetfw'
-  }, 300);
-};
+    window.location.href = 'https://line.me/R/ti/p/%40242hetfw'
+  }, 300)
+}
 </script>
 
 <template>
@@ -244,9 +242,11 @@ const handleLineClick = () => {
 
     <div id="ad">
       <div id="line-Ai-consul">
-        一緒にあなたの年収をアップする方法を考えませんか？
+        一緒に年収アップのヒントを<br />
+        探しませんか？<br />
+        AIがLINEでお手伝いします。
         <br />
-        <button class="line-button" @click="handleLineClick">LINEで簡単に相談する</button>
+        <button class="line-button" @click="handleLineClick">LINEでAIに話しかけてみる</button>
       </div>
     </div>
     <h2 class="PR">PR</h2>
@@ -393,7 +393,7 @@ input[type='number'] {
 }
 
 #line-Ai-consul {
-  font-size: 24px;
+  font-size: 18px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
