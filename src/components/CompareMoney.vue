@@ -242,11 +242,10 @@ const handleLineClick = () => {
 
     <div id="ad">
       <div id="line-Ai-consul">
-        一緒に年収アップのヒントを<br />
-        探しませんか？<br />
-        AIがLINEでお手伝いします。
-        <br />
-        <button class="line-button" @click="handleLineClick">LINEでAIに話しかけてみる</button>
+        【結果に驚いたあなたへ】 <br />
+        ちょっと話してみるだけでもOK<br />
+        あなた専用AIに相談しませんか？<br />
+        <button class="line-button" @click="handleLineClick">LINEでAIに相談する</button>
       </div>
     </div>
     <h2 class="PR">PR</h2>
