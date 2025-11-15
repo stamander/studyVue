@@ -9,31 +9,7 @@ const achievements = ref<
   Array<{ id: number; name: string; achievements: Array<{ age: number; event: string }> }>
 >([])
 
-// 選択されたインデックスを保持するための変数
-const activeIndex = ref<number | null>(null)
-
 type Achievement = { id: number; name: string; age: number; event: string }
-
-function shuffleArray(array: Achievement[]): Achievement[] {
-  return array.sort(() => Math.random() - 0.5)
-}
-
-// セッションストレージからデータを取得する関数
-function getStoredAchievements(ageValue: string, today: string): Achievement[] | null {
-  const storedDate = sessionStorage.getItem(`shuffleDate-${ageValue}`)
-  const storedAchievements = sessionStorage.getItem(`shuffledAchievements-${ageValue}`)
-
-  if (storedDate === today && storedAchievements) {
-    return JSON.parse(storedAchievements)
-  }
-  return null
-}
-
-// セッションストレージにデータを保存する関数
-function storeAchievements(ageValue: string, today: string, achievements: Achievement[]) {
-  sessionStorage.setItem(`shuffleDate-${ageValue}`, today)
-  sessionStorage.setItem(`shuffledAchievements-${ageValue}`, JSON.stringify(achievements))
-}
 
 onMounted(async () => {
   const response = await fetch('/greatPerson.json')
@@ -42,34 +18,16 @@ onMounted(async () => {
 
 // フィルタリングされた業績を計算
 const filteredAchievements: ComputedRef<Achievement[]> = computed(() => {
-  const today = new Date().toISOString().split('T')[0] // 今日の日付を取得
-  const ageValue = age.value.toString() // 年齢を文字列に変換
-
-  // セッションストレージからデータを取得
-  const storedAchievements = getStoredAchievements(ageValue, today)
-
-  if (storedAchievements) {
-    return storedAchievements
-  } else {
-    // 新しいシャッフル結果を生成
-    const newAchievements = achievements.value
-      .flatMap((person) =>
-        person.achievements.map((achievement) => ({
-          id: person.id,
-          name: person.name,
-          age: achievement.age,
-          event: achievement.event
-        }))
-      )
-      .filter((a) => a.age === age.value)
-
-    const shuffledAchievements = shuffleArray(newAchievements).slice(0, 3) // シャッフルして最初の3つを選択
-
-    // 新しいシャッフル結果と日付をセッションストレージに保存
-    storeAchievements(ageValue, today, shuffledAchievements)
-
-    return shuffledAchievements
-  }
+  return achievements.value
+    .flatMap((person) =>
+      person.achievements.map((achievement) => ({
+        id: person.id,
+        name: person.name,
+        age: achievement.age,
+        event: achievement.event
+      }))
+    )
+    .filter((a) => a.age === age.value)
 })
 
 // フォーム送信の処理
@@ -87,11 +45,6 @@ const ageError: Ref<boolean> = ref(false)
 watch(age, (newAge) => {
   ageError.value = newAge <= 0 || !Number.isInteger(newAge)
 })
-
-// イベントの表示・非表示を切り替えるためのメソッド
-const toggleEvent = (index: number): void => {
-  activeIndex.value = activeIndex.value === index ? null : index
-}
 const referencesSite: Ref<Array<{ link: string; text: string; accessDate: string }>> = ref([
   {
     link: 'https://wayohoo.com/article/3421',
@@ -189,15 +142,21 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
 
       <div id="results" v-if="submitted">
         あなたは{{ age }}歳です。
-        <div v-for="(achievement, index) in filteredAchievements" :key="index">
-          <button class="person-name light-green-button" @click="toggleEvent(index)">
-            {{ achievement.name }}
-          </button>
-          <div v-if="activeIndex === index">
-            {{ achievement.event }}
+        <div v-if="filteredAchievements.length">
+          <div
+            v-for="(achievement, index) in filteredAchievements"
+            :key="`${achievement.id}-${index}`"
+            class="achievement-result"
+          >
+            <p class="person-name">
+              {{ achievement.name }}
+            </p>
+            <p class="person-event">
+              {{ achievement.event }}
+            </p>
           </div>
         </div>
-        内容は毎日変わります！明日もチェックしてみてください！
+        <p v-else>該当する出来事が見つかりませんでした。</p>
       </div>
 
       <div v-else>
@@ -208,6 +167,18 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
           <br />
           <p>スティーブ・ジョブズ:アップルの次世代コンピュータ、Lisaの開発をリードしました。</p>
         </div>
+      </div>
+
+      <div class="line-invite">
+        <p>偉人のようになるにはどうすればいいのか相談してみませんか？</p>
+        <a
+          class="line-button"
+          href="https://line.me/R/ti/p/%40242hetfw"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LINEで友だち追加する
+        </a>
       </div>
     </div>
 
@@ -239,8 +210,21 @@ const referencesBook: Ref<Array<{ text: string; writer: string; publicationDate:
   margin-bottom: 20px;
 }
 
+.achievement-result {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: #f7fff7;
+}
+
 .person-name {
   font-weight: bold;
+  margin: 0;
+}
+
+.person-event {
+  margin: 8px 0 0;
 }
 
 body {
@@ -286,32 +270,33 @@ input[type='number'] {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 薄いグリーンのボタンスタイル */
-.light-green-button {
-  background-color: white; /* 薄いグリーン */
-  color: #4caf50;
-  padding: 15px 30px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: 2px solid #81c784; /* 薄い緑色のボーダー */
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition:
-    background-color 0.3s,
-    box-shadow 0.3s;
-}
-
-.light-green-button:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.light-green-button:active {
-  background-color: #66bb6a; /* クリック時さらに濃い色に */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
 .example {
   color: gray;
+}
+
+.line-invite {
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  border: 1px dashed #4caf50;
+  border-radius: 8px;
+  background-color: #f6fff5;
+}
+
+.line-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 24px;
+  color: #fff;
+  background-color: #06c755; /* LINEブランドカラー */
+  border-radius: 999px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.line-button:hover {
+  opacity: 0.85;
 }
 
 #parents-references {
